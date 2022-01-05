@@ -9,7 +9,6 @@
  * Connectivity Test Flow
  */
 import axios from 'axios';
-import * as Promise from 'promise';
 /* tslint:disable */
 import OTKAnalytics = require('opentok-solutions-logging');
 /* tslint:enable */
@@ -39,7 +38,7 @@ export type ConnectivityTestResults = {
  * event listeners and invoke the provided callback function.
  */
 function disconnectFromSession(session: OT.Session) {
-  return new Promise((resolve, reject) => {
+  return new Promise<void>((resolve, reject) => {
     session.on('sessionDisconnected', () => {
       session.off();
       resolve();
@@ -54,7 +53,7 @@ function disconnectFromSession(session: OT.Session) {
  * @param subscriber
  */
 function cleanSubscriber(session: OT.Session, subscriber: OT.Subscriber) {
-  return new Promise((resolve, reject) => {
+  return new Promise<void>((resolve, reject) => {
     subscriber.on('destroyed', () => {
       resolve();
     });
@@ -66,7 +65,7 @@ function cleanSubscriber(session: OT.Session, subscriber: OT.Subscriber) {
 }
 
 function cleanPublisher(publisher: OT.Publisher) {
-  return new Promise((resolve, reject) => {
+  return new Promise<void>((resolve, reject) => {
     publisher.on('destroyed', () => {
       resolve();
     });
@@ -264,7 +263,7 @@ function checkSubscribeToSession({ session, publisher }: PublishToSessionResults
  */
 function checkLoggingServer(OT: OT.Client, options?: NetworkTestOptions, input?: SubscribeToSessionResults):
   Promise<SubscribeToSessionResults> {
-  return new Promise((resolve, reject) => {
+  return new Promise<any>((resolve, reject) => {
     const loggingUrl = `${getOr('', 'properties.loggingURL', OT)}/logging/ClientEvent`; // https://hlg.tokbox.com/prod
     const url = options && options.proxyServerUrl &&
       `${options.proxyServerUrl}/${loggingUrl.replace('https://', '')}` || loggingUrl;

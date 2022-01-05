@@ -1,7 +1,7 @@
 import { OT } from '../../types/opentok';
 
-export default (publisher: OT.Publisher): Promise<OT.PublisherRtcStatsReportArr | null> =>
-  new Promise((resolve) => {
+export default (publisher: OT.Publisher): Promise<OT.PublisherRtcStatsReportArr | undefined | null> =>
+  new Promise<OT.PublisherRtcStatsReportArr | undefined | null>((resolve) => {
     // If getRtcStatsReport is not a function, that means OT version is < 2.17.6
     // In this case we just return null.
     if (typeof publisher.getRtcStatsReport !== 'function') {

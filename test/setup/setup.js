@@ -1,6 +1,5 @@
 require('dotenv').config()
 const OpenTok = require('opentok');
-const Promise = require('promise');
 const fse = require('fs-extra');
 const apiKey = process.env.TEST_API_KEY
 const apiSecret = process.env.TEST_API_SECRET

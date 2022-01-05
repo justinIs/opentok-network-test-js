@@ -51,7 +51,7 @@ function calculateVideoScore(subscriber: OT.Subscriber, stats: OT.SubscriberStat
 }
 
 function calculateAudioScore(
-  subscriber: OT.Subscriber, publisherStats: OT.PublisherRtcStatsReportArr | null,
+  subscriber: OT.Subscriber, publisherStats: OT.PublisherRtcStatsReportArr | undefined | null,
   stats: OT.SubscriberStats[]): number {
 
   /**
@@ -61,7 +61,7 @@ function calculateAudioScore(
    * we will return 0.
    */
   const getRoundTripTime = () => {
-    let roundTripTime = 0;
+    const roundTripTime = 0;
     if (publisherStats) {
       const { rtcStatsReport } = publisherStats[0];
       let roundTripTime = 0;
@@ -158,7 +158,7 @@ export default function subscriberMOS(
          * We know that we're receiving "faulty" stats when we see a negative
          * value for bytesReceived.
          */
-        if (stats.audio.bytesReceived < 0 || getOr(1, 'video.bytesReceived', stats) < 0) {
+        if (stats.audio.bytesReceived < 0 || getOr<number>(1, 'video.bytesReceived', stats) < 0) {
           mosState.clearInterval();
           return callback(mosState);
         }

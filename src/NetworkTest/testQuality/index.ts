@@ -12,7 +12,6 @@
 /* tslint:disable */
 import OTKAnalytics = require('opentok-solutions-logging');
 /* tslint:enable */
-import * as Promise from 'promise';
 import {
   NetworkTestOptions,
 } from '../index';
@@ -215,7 +214,7 @@ function isAudioQualityAcceptable(results: QualityTestResults): boolean {
  * @param subscriber
  */
 function cleanSubscriber(session: OT.Session, subscriber: OT.Subscriber) {
-  return new Promise((resolve, reject) => {
+  return new Promise<void>((resolve, reject) => {
     subscriber.on('destroyed', () => {
       resolve();
     });
@@ -231,7 +230,7 @@ function cleanSubscriber(session: OT.Session, subscriber: OT.Subscriber) {
  * @param publisher
  */
 function cleanPublisher(publisher: OT.Publisher) {
-  return new Promise((resolve, reject) => {
+  return new Promise<void>((resolve, reject) => {
     publisher.on('destroyed', () => {
       resolve();
     });
